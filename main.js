@@ -29,8 +29,9 @@ function fgfy(sbox,sboxBox)
 
 function vowelReplace(word)
 {
+    console.log(word);
+
     var varray=word.match(/[aeiou]/g);
-    console.log(varray);
 
     var maxReplace=0;
     
@@ -46,32 +47,81 @@ function vowelReplace(word)
 
     var replaceAmount=Math.floor(Math.random()*maxReplace)+1;
     
-    var replaceIndex=[];
-    var newIndex;
-    for (var x=0;x<replaceAmount;x++)
-    {
-        newIndex=Math.floor(Math.random()*varray.length);
+    // var replaceIndex=[];
+    // var newIndex;
+    // for (var x=0;x<replaceAmount;x++)
+    // {
+    //     newIndex=Math.floor(Math.random()*varray.length);
         
-        if (replaceIndex.includes(newIndex))
+    //     if (replaceIndex.includes(newIndex))
+    //     {
+    //         x--;
+    //     }
+
+    //     else
+    //     {
+    //         replaceIndex.push(newIndex);
+    //     }
+    // }
+
+    // var currVowel;
+    // for (var x=0;x<replaceAmount;x++)
+    // {
+    //     currVowel=varray[replaceIndex[x]];
+
+    //     varray[replaceIndex[x]]=randomVowel(currVowel);
+    // }
+
+    // var word2=word;
+    // for (var x=word2.length-1;x>=0;x--)
+    // {
+    //     if (word2[x].search(/[aeiou]/)==0)
+    //     {
+    //         word2[x]=varray.pop();
+    //     }
+    // }
+
+    // console.log(word2);
+}
+
+function getReplacementIndex(arraySize,randomAmount)
+{
+    var replacementIndex=[];
+    var randomIndex=0;
+    var minSize=0;
+
+    for (var x=0;x<randomAmount;x++)
+    {
+        randomIndex=randomNum(arraySize,minSize);
+
+        if (replacementIndex.include(randomIndex))
         {
             x--;
         }
-
+        
         else
         {
-            replaceIndex.push(newIndex);
+            replacementIndex.push(randomIndex);
+        }
+
+        if (randomIndex==arraySize)
+        {
+            arraySize--;
+        }
+
+        if (randomIndex==minSize)
+        {
+            minSize++;
         }
     }
 
-    var currVowel;
-    for (var x=0;x<replaceAmount;x++)
-    {
-        currVowel=varray[replaceIndex[x]];
+    return replacementIndex;
+}
 
-        varray[replaceIndex[x]]=randomVowel(currVowel);
-    }
-
-    console.log(varray);
+//inclusive
+function randomNum(max,min)
+{
+    return Math.floor(Math.random()*(max-min+1))+min;
 }
 
 var randomVowel_vowels=["a","e","i","o","u"];
