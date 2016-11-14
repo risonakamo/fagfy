@@ -23,10 +23,24 @@ function mainSearch()
 function fgfy(sbox,sboxBox,outputBox)
 {
     var word=sbox[0].value;
+    word=word.toLowerCase();
 
-    word=vowelReplace(word);
+    var words=word.split(" ");
 
-    outputBox.text(word);
+    var currWord;
+
+    for (var x=0;x<words.length;x++)
+    {
+        currWord=words[x];
+
+        if (currWord.length>2)
+        {
+            console.log(pairSwap(words[x]));
+            words[x]=vowelReplace(words[x]);
+        }
+    }
+
+    outputBox.text(words.join(" "));
     TweenMax.to(sboxBox,.2,{className:"+=sbox-moved"});
     TweenMax.to(outputBox,.2,{className:"+=show"});
 }
@@ -84,6 +98,31 @@ function vowelReplace(word)
     return word2.join("");
 }
 
+function pairSwap(word)
+{
+    word=word.split("");
+
+    var randomIndex=randomNum(word.length-1,2);
+    var tempLetter;
+
+    tempLetter=word[randomIndex];
+    word[randomIndex]=word[randomIndex-1];
+    word[randomIndex-1]=tempLetter;
+
+    return word.join("");
+}
+
+function randomDupe(word)
+{
+    word=word.split("");
+
+    var randomIndex=randomNum(word.length-1,0);
+
+    word[randomIndex]=word[randomIndex]+word[randomIndex];
+
+    return word.join("");
+}
+
 function getReplacementIndex(arraySize,randomAmount)
 {
     if (randomAmount>arraySize)
@@ -122,7 +161,6 @@ function getReplacementIndex(arraySize,randomAmount)
         }
     }
 
-    console.log(replacementIndex);
     return replacementIndex;
 }
 

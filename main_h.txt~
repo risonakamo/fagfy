@@ -3,8 +3,6 @@ void mainSearch();
 void fgfy(elmt sbox,elmt sboxBox,elmt outputBox);
 
 string vowelReplace(string word);
-string pairSwap(string word);
-string randomDupe(string word);       
 
 int[] getReplacementIndex(int arraySize,int randomAmount);
 int randomNum(int max,int min);
