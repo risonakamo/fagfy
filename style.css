@@ -50,3 +50,21 @@ body
 {
     border-color: #cc72cb;
 }
+
+.output-box
+{
+    display: none;
+    margin: auto;
+    position: relative;
+    width: 600px;
+    
+    font-family: roboto;
+    font-size: 50px;
+
+    top: 300px;
+}
+
+.show
+{
+    display: block;
+}

@@ -9,32 +9,39 @@ function mainSearch()
 {
     var sbox=$(".sbox-field");
     var sboxBox=$(".sbox-box");
+    var outputBox=$(".output-box");
+    sbox.focus();
 
     sbox.on("keydown",function(e){
         if (e.key=="Enter")
         {
-            fgfy(sbox,sboxBox);
+            fgfy(sbox,sboxBox,outputBox);
         }       
     });
 }
 
-function fgfy(sbox,sboxBox)
+function fgfy(sbox,sboxBox,outputBox)
 {
-    TweenMax.to(sboxBox,.2,{className:"+=sbox-moved"});
-
     var word=sbox[0].value;
 
-    vowelReplace(word);
+    word=vowelReplace(word);
+
+    outputBox.text(word);
+    TweenMax.to(sboxBox,.2,{className:"+=sbox-moved"});
+    TweenMax.to(outputBox,.2,{className:"+=show"});
 }
 
 function vowelReplace(word)
 {
-    console.log(word);
-
     var varray=word.match(/[aeiou]/g);
-
     var maxReplace=0;
+    var word2=word.split("");
     
+    if (!varray)
+    {
+        return;
+    }
+
     if (varray.length<4)
     {
         maxReplace=1;
@@ -42,59 +49,59 @@ function vowelReplace(word)
 
     else
     {
-        maxReplace=Math.floor(.4*varray.length);
+        if (randomNum(1,0)==1)
+        {
+            maxReplace=1;
+        }
+
+        else
+        {
+            maxReplace=Math.floor(.4*varray.length);
+        }
     }
 
-    var replaceAmount=Math.floor(Math.random()*maxReplace)+1;
-    
-    // var replaceIndex=[];
-    // var newIndex;
-    // for (var x=0;x<replaceAmount;x++)
-    // {
-    //     newIndex=Math.floor(Math.random()*varray.length);
-        
-    //     if (replaceIndex.includes(newIndex))
-    //     {
-    //         x--;
-    //     }
+    var replaceAmount=randomNum(maxReplace,1);
+    var replaceIndex=getReplacementIndex(varray.length,replaceAmount);
+    var currVowel;
 
-    //     else
-    //     {
-    //         replaceIndex.push(newIndex);
-    //     }
-    // }
+    for (var x=0;x<replaceIndex.length;x++)
+    {        
+        currVowel=varray[replaceIndex[x]];
 
-    // var currVowel;
-    // for (var x=0;x<replaceAmount;x++)
-    // {
-    //     currVowel=varray[replaceIndex[x]];
+        varray[replaceIndex[x]]=randomVowel(currVowel);
+    }
 
-    //     varray[replaceIndex[x]]=randomVowel(currVowel);
-    // }
+    var currentIndex=0;
+    for (var x=0;x<word2.length;x++)
+    {
+        if (word2[x].search(/[aeiou]/)>=0)
+        {
+            word2[x]=varray[currentIndex];
+            currentIndex++;
+        }
+    }
 
-    // var word2=word;
-    // for (var x=word2.length-1;x>=0;x--)
-    // {
-    //     if (word2[x].search(/[aeiou]/)==0)
-    //     {
-    //         word2[x]=varray.pop();
-    //     }
-    // }
-
-    // console.log(word2);
+    return word2.join("");
 }
 
 function getReplacementIndex(arraySize,randomAmount)
 {
+    if (randomAmount>arraySize)
+    {
+        console.log("getReplacementIndex error: randomAmount > arraySize");
+        return;
+    }
+
     var replacementIndex=[];
     var randomIndex=0;
     var minSize=0;
-
+    arraySize--;
+   
     for (var x=0;x<randomAmount;x++)
     {
         randomIndex=randomNum(arraySize,minSize);
 
-        if (replacementIndex.include(randomIndex))
+        if (replacementIndex.includes(randomIndex))
         {
             x--;
         }
@@ -115,6 +122,7 @@ function getReplacementIndex(arraySize,randomAmount)
         }
     }
 
+    console.log(replacementIndex);
     return replacementIndex;
 }
 
@@ -124,14 +132,14 @@ function randomNum(max,min)
     return Math.floor(Math.random()*(max-min+1))+min;
 }
 
-var randomVowel_vowels=["a","e","i","o","u"];
+var randomVowel_vowels=["a","e","i","o","u",""];
 function randomVowel(startVowel)
 {
     var randomVowelNum;
 
     while (1)
     {
-        randomVowelNum=Math.floor(Math.random()*5);
+        randomVowelNum=randomNum(randomVowel_vowels.length,0);
         
         if (randomVowel_vowels[randomVowelNum]!=startVowel)
         {
