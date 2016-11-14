@@ -6,7 +6,10 @@ string vowelReplace(string word);
 string pairSwap(string word);
 string randomDupe(string word);       
 string doubleRemove(string word);
-string consonantRemove(string word);
+*string consonantRemove(string word);
+*string vowelProp(string word);
+
+*string patternReplace(string word);
 
 int[] getReplacementIndex(int arraySize,int randomAmount);
 int randomNum(int max,int min);

@@ -10,16 +10,19 @@ function mainSearch()
     var sbox=$(".sbox-field");
     var sboxBox=$(".sbox-box");
     var outputBox=$(".output-box");
+    var allsbox=$(".sbox");
     sbox.focus();
 
     sbox.on("keydown",function(e){
         if (e.key=="Enter")
         {
+            e.preventDefault();
             fgfy(sbox,sboxBox,outputBox);
         }       
     });
 }
 
+var m_stratArray=[vowelReplace,pairSwap,randomDupe,doubleRemove];
 function fgfy(sbox,sboxBox,outputBox)
 {
     var word=sbox[0].value;
@@ -35,18 +38,21 @@ function fgfy(sbox,sboxBox,outputBox)
 
         if (currWord.length>2)
         {
-            console.log(pairSwap(words[x]));
-            words[x]=vowelReplace(words[x]);
+            words[x]=m_stratArray[randomNum(m_stratArray.length-1,0)](words[x]);
         }
     }
 
     outputBox.text(words.join(" "));
-    TweenMax.to(sboxBox,.2,{className:"+=sbox-moved"});
+    // TweenMax.to(sboxBox,.2,{className:"+=sbox-moved"});
+    TweenMax.to($(".sbox"),.2,{className:"+=sbox-moved"});
     TweenMax.to(outputBox,.2,{className:"+=show"});
+
+    console.log("done");
 }
 
 function vowelReplace(word)
 {
+    console.log("vreplace");
     var varray=word.match(/[aeiou]/g);
     var maxReplace=0;
     var word2=word.split("");
@@ -100,6 +106,7 @@ function vowelReplace(word)
 
 function pairSwap(word)
 {
+    console.log("pairswap");
     word=word.split("");
 
     var randomIndex=randomNum(word.length-1,2);
@@ -114,6 +121,7 @@ function pairSwap(word)
 
 function randomDupe(word)
 {
+    console.log("randomdupe");
     word=word.split("");
 
     var randomIndex=randomNum(word.length-1,0);
@@ -125,6 +133,7 @@ function randomDupe(word)
 
 function doubleRemove(word)
 {
+    console.log("doubleremove");
     word=word.split("");
 
     for (var x=0;x<word.length;x++)
@@ -136,6 +145,8 @@ function doubleRemove(word)
             return word.join("");
         }
     }
+
+    return word.join("");
 }
 
 function consonantRemove(word)
@@ -149,6 +160,41 @@ function consonantRemove(word)
             
         }
     }
+}
+
+function vowelProp(word)
+{
+
+}
+
+function patternReplace(word)
+{
+    if (word=="to")
+    {
+        if (Math.random()<.95) 
+        {
+            return "2";
+        }
+    }
+
+    word.replace(/'/g,"");
+
+    if (Math.random()<.95) 
+    {
+        word.replace(/ate|ait|aight/g,"8");
+    }
+
+    if (Math.random()<.95) 
+    {
+        word.replace(/one/g,"1");
+    }
+
+    if (Math.random()<.95) 
+    {
+        word.replace(/you/g,"u");
+    }
+
+    return word;
 }
 
 function getReplacementIndex(arraySize,randomAmount)

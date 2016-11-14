@@ -21,7 +21,7 @@ body
 
 .sbox-moved
 {
-    top: 250px;
+    top: 0px;
 }
 
 .sbox
@@ -57,11 +57,11 @@ body
     margin: auto;
     position: relative;
     width: 600px;
+
     
     font-family: roboto;
     font-size: 50px;
-
-    top: 300px;
+    overflow-wrap: break-word;
 }
 
 .show
