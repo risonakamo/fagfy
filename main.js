@@ -123,6 +123,34 @@ function randomDupe(word)
     return word.join("");
 }
 
+function doubleRemove(word)
+{
+    word=word.split("");
+
+    for (var x=0;x<word.length;x++)
+    {
+        if (word[x]==word[x+1])
+        {
+            word[x+1]="";
+
+            return word.join("");
+        }
+    }
+}
+
+function consonantRemove(word)
+{
+    word=word.split("");
+
+    for (var x=1;x<word.length;x++)
+    {
+        if (word[x].search(/[aeiou]/)<0)
+        {
+            
+        }
+    }
+}
+
 function getReplacementIndex(arraySize,randomAmount)
 {
     if (randomAmount>arraySize)
