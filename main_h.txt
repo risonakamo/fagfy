@@ -2,14 +2,15 @@ void main();
 void mainSearch();
 void fgfy(elmt sbox,elmt sboxBox,elmt outputBox);
 
-string vowelReplace(string word);
-string pairSwap(string word);
-string randomDupe(string word);       
-string doubleRemove(string word);
+string vowelReplace(string word);  //common
+string pairSwap(string word);  //semi rare
+string randomDupe(string word);  //rare
+string doubleRemove(string word);  //common if possible
 *string consonantRemove(string word);
-*string vowelProp(string word);
+*string vowelProp(string word);  //rare
 
-*string patternReplace(string word);
+global int g_patternOverride;
+*string patternReplace(string word);  //always
 
 int[] getReplacementIndex(int arraySize,int randomAmount);
 int randomNum(int max,int min);

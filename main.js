@@ -22,7 +22,7 @@ function mainSearch()
     });
 }
 
-var m_stratArray=[vowelReplace,pairSwap,randomDupe,doubleRemove];
+var g_stratArray=[vowelReplace,pairSwap,randomDupe,doubleRemove];
 function fgfy(sbox,sboxBox,outputBox)
 {
     var word=sbox[0].value;
@@ -38,7 +38,7 @@ function fgfy(sbox,sboxBox,outputBox)
 
         if (currWord.length>2)
         {
-            words[x]=m_stratArray[randomNum(m_stratArray.length-1,0)](words[x]);
+            words[x]=g_stratArray[randomNum(g_stratArray.length-1,0)](words[x]);
         }
     }
 
@@ -167,29 +167,64 @@ function vowelProp(word)
 
 }
 
+var g_patternOverride=0;
 function patternReplace(word)
 {
     if (word=="to")
     {
-        if (Math.random()<.95) 
+        if (Math.random()<.40) 
         {
             return "2";
         }
     }
 
+    if (word=="is")
+    {
+        if (Math.random()<.45)
+        {
+            return "are";
+        }
+    }
+
+    if (word=="are")
+    {
+        if (Math.random()<.45)
+        {
+            return "is";
+        }
+    }
+
+    if (word=="please")
+    {
+        
+    }
+
     word.replace(/'/g,"");
 
-    if (Math.random()<.95) 
+    if (Math.random()<.9)
+    {
+        if (Math.random()<.5)
+        {
+            word.replace(/ie/g,"y");
+        }
+
+        else
+        {
+            word.replace(/y/g,"ie");
+        }
+    }
+
+    if (Math.random()<.40) 
     {
         word.replace(/ate|ait|aight/g,"8");
     }
 
-    if (Math.random()<.95) 
+    if (Math.random()<.85) 
     {
         word.replace(/one/g,"1");
     }
 
-    if (Math.random()<.95) 
+    if (Math.random()<.90) 
     {
         word.replace(/you/g,"u");
     }
